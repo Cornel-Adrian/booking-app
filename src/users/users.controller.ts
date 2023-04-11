@@ -9,32 +9,32 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) { }
 
 
-  @Get(':userId')
-  async getUser(@Param('userId') userId: string): Promise<User> {
-    return this.usersService.getUserById(userId);
-  }
+  // @Get(':userId')
+  // async getUser(@Param('userId') userId: string): Promise<User> {
+  //   return this.usersService.getUserById(userId);
+  // }
 
 
-  @Get('/query')
+  @Get('query')
   async findByFilter(@Query() query): Promise<User> {
     return this.usersService.getUserById(query);
   }
 
 
-  @Get('/getAll')
+  @Get('getAll')
   async getUsers(): Promise<User[]> {
     return this.usersService.getUsers();
   }
 
 
-  @Post('/create')
+  @Post('create')
   async createUser(@Body() createUserDto: CreateUserDto): Promise<User>{
     return this.usersService.createUser(createUserDto.email, createUserDto.password , createUserDto.name, createUserDto.role);
   }
 
 
   @UseGuards(JwtAuthGuard)
-  @Get('/me')
+  @Get('me')
   me(@Req() request) {
     const userId = request.user.userId;
     return this.usersService.getUserById(userId);
