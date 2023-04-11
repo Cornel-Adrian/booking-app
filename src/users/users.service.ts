@@ -19,12 +19,13 @@ export class UsersService {
     }
 
 
-    async createUser(email: string, password: string, name: string): Promise<User> {
+    async createUser(email: string, password: string, name: string, role: string): Promise<User> {
         return this.userRepository.create({
             userId: uuidv4(),
             email: email,
             password: password,
             name: name,
+            role: role,
         })
     }
 
