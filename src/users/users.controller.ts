@@ -37,8 +37,6 @@ export class UsersController {
   @Get('/me')
   me(@Req() request) {
     const userId = request.user.userId;
-    console.log(request);
-    console.log("request");
     return this.usersService.getUserById(userId);
   }
 }
