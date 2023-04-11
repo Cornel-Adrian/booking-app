@@ -21,13 +21,13 @@ export class UsersController {
   }
 
 
-  @Get()
+  @Get('/getAll')
   async getUsers(): Promise<User[]> {
     return this.usersService.getUsers();
   }
 
 
-  @Post()
+  @Post('/create')
   async createUser(@Body() createUserDto: CreateUserDto): Promise<User>{
     return this.usersService.createUser(createUserDto.email, createUserDto.password , createUserDto.name, createUserDto.role);
   }
@@ -37,6 +37,8 @@ export class UsersController {
   @Get('/me')
   me(@Req() request) {
     const userId = request.user.userId;
+    console.log(request);
+    console.log("request");
     return this.usersService.getUserById(userId);
   }
 }
