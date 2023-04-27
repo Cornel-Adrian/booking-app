@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { Document } from 'mongoose'
+import { Status } from "./status.enum";
 
 
 export type OrderDocument = Order & Document;
@@ -10,7 +11,15 @@ export class Order {
     @Prop()
     orderId: string;
     @Prop()
-    email: string;
+    userId: string;
+    @Prop()
+    companyId: string;
+    @Prop()
+    status: Status[];
+    @Prop()
+    service: string;
+    @Prop()
+    desiredDate: string; 
 }
 
 
