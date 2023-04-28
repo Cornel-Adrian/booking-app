@@ -8,13 +8,6 @@ import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 export class UsersController {
   constructor(private readonly usersService: UsersService) { }
 
-
-  // @Get(':userId')
-  // async getUser(@Param('userId') userId: string): Promise<User> {
-  //   return this.usersService.getUserById(userId);
-  // }
-
-
   @Get('query')
   async findByFilter(@Query() query): Promise<User> {
     return this.usersService.getUserById(query);
@@ -28,8 +21,8 @@ export class UsersController {
 
 
   @Post('create')
-  async createUser(@Body() createUserDto: CreateUserDto): Promise<User>{
-    return this.usersService.createUser(createUserDto.email, createUserDto.password , createUserDto.name, createUserDto.role);
+  async createUser(@Body() createUserDto: CreateUserDto): Promise<User> {
+    return this.usersService.createUser(createUserDto.email, createUserDto.password, createUserDto.name);
   }
 
 

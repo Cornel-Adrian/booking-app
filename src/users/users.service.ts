@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { User } from './schemas/user.schema';
 import { UsersRepository } from './users.repository';
 import { v4 as uuidv4 } from 'uuid';
+import { Role } from './roles/role.enum';
 
 
 @Injectable()
@@ -19,13 +20,13 @@ export class UsersService {
     }
 
 
-    async createUser(email: string, password: string, name: string, role: string): Promise<User> {
+    async createUser(email: string, password: string, name: string): Promise<User> {
         return this.userRepository.create({
             userId: uuidv4(),
             email: email,
             password: password,
             name: name,
-            role: role,
+            role: Role.User,
         })
     }
 
