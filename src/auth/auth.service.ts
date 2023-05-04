@@ -1,14 +1,15 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { UsersService } from '../users/users.service';
 import { User } from '../users/schemas/user.schema';
 import RefreshToken from './entities/refresh-token.entity';
 import { sign, verify } from 'jsonwebtoken';
+import { Error } from 'mongoose';
 
 @Injectable()
 export class AuthService {
   private refreshTokens: RefreshToken[] = [];
 
-  constructor(private readonly userService: UsersService) {}
+  constructor(private readonly userService: UsersService) { }
 
   async refresh(refreshStr: string): Promise<string | undefined> {
     const refreshToken = await this.retrieveRefreshToken(refreshStr);
@@ -51,11 +52,11 @@ export class AuthService {
   ): Promise<{ accessToken: string; refreshToken: string } | undefined> {
     const user = await this.userService.getUserByEmail(email);
     if (!user) {
-      return undefined;
+      throw new HttpException('Not found', HttpStatus.BAD_REQUEST)
     }
-    // verify your user -- use argon2 for password hashing!!
+
     if (user.password !== password) {
-      return undefined;
+      throw new HttpException('Server error', HttpStatus.BAD_REQUEST)
     }
 
     return this.newRefreshAndAccessToken(user, values);
@@ -64,7 +65,7 @@ export class AuthService {
   private async newRefreshAndAccessToken(
     user: User,
     values: { userAgent: string; ipAddress: string },
-  ): Promise<{ accessToken: string; refreshToken: string }> {
+  ): Promise<{ accessToken: string, role: string; refreshToken: string }> {
     const refreshObject = new RefreshToken({
       id:
         this.refreshTokens.length === 0
@@ -77,6 +78,7 @@ export class AuthService {
 
     return {
       refreshToken: refreshObject.sign(),
+      role: user.role,
       accessToken: sign(
         {
           userId: user.userId,

@@ -20,6 +20,8 @@ export class Order {
     service: string;
     @Prop()
     desiredDate: string; 
+    @Prop()
+    price: number; 
 }
 
 
