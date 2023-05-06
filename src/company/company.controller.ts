@@ -8,14 +8,14 @@ import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 export class CompanyController {
   constructor(private readonly companyService: CompanyService) { }
 
-  @Post()
+  @Post('create')
   create(@Body() createCompanyDto: CreateCompanyDto) {
     return this.companyService.create(createCompanyDto);
   }
 
 
   @UseGuards(JwtAuthGuard)
-  @Get()
+  @Get('/all')
   findAll() {
     return this.companyService.findAll();
   }
