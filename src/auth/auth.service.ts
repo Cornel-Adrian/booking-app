@@ -3,7 +3,6 @@ import { UsersService } from '../users/users.service';
 import { User } from '../users/schemas/user.schema';
 import RefreshToken from './entities/refresh-token.entity';
 import { sign, verify } from 'jsonwebtoken';
-import { Error } from 'mongoose';
 
 @Injectable()
 export class AuthService {
