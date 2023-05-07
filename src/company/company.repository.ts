@@ -1,11 +1,10 @@
 import { Injectable } from "@nestjs/common";
-import { FilterQuery, Model } from "mongoose";
-import { Company, CompanyDocument } from "./entities/company.entity";
 import { InjectModel } from "@nestjs/mongoose";
+import { Company, CompanyDocument } from "./schemas/company.schema";
+import { Model, FilterQuery } from 'mongoose';
 
 @Injectable()
 export class CompanyRepository {
-
     constructor(@InjectModel(Company.name) private companyModel: Model<CompanyDocument>) { }
 
 
