@@ -17,7 +17,7 @@ export class Order {
     @Prop()
     status: Status[];
     @Prop()
-    service: string;
+    serviceName: string;
     @Prop()
     desiredDate: string; 
     @Prop()
