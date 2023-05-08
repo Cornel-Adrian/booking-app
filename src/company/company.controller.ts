@@ -10,7 +10,7 @@ export class CompanyController {
 
   @Post('create')
   create(@Body() createCompanyDto: CreateCompanyDto) {
-    return this.companyService.create(createCompanyDto);
+    return this.companyService.create(createCompanyDto.name , createCompanyDto.email, createCompanyDto.description, createCompanyDto.services);
   }
 
 

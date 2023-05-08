@@ -1,12 +1,31 @@
 import { Injectable } from '@nestjs/common';
 import { CreateCompanyDto } from './dto/create-company.dto';
 import { UpdateCompanyDto } from './dto/update-company.dto';
+import { CompanyRepository } from './company.repository'
+import { v4 as uuidv4 } from 'uuid';
+import { Company } from './schemas/company.schema';
+
+
+class Service {
+  name: string;
+  description: string;
+  price: number;
+}
 
 @Injectable()
 export class CompanyService {
 
-  create(createCompanyDto: CreateCompanyDto) {
-    return 'This action adds a new company';
+  constructor(private readonly companyRepository: CompanyRepository) { }
+
+  create(name: string, email: string, description: string, services: Service[]): Promise<Company> {
+    return this.companyRepository.create({
+      companyId: uuidv4(),
+      name: name,
+      email: email,
+      description: description,
+      services: services
+    }
+    );
   }
 
   findAll() {
