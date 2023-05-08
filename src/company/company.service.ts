@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { CreateCompanyDto } from './dto/create-company.dto';
 import { UpdateCompanyDto } from './dto/update-company.dto';
 import { CompanyRepository } from './company.repository'
 import { v4 as uuidv4 } from 'uuid';
@@ -29,11 +28,11 @@ export class CompanyService {
   }
 
   findAll() {
-    return `This action returns all company`;
+    return this.companyRepository.find({});
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} company`;
+  findOne(companyId: string) {
+    return this.companyRepository.findOne({ "companyId": companyId });
   }
 
   update(id: number, updateCompanyDto: UpdateCompanyDto) {

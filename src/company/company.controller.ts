@@ -24,7 +24,7 @@ export class CompanyController {
   @UseGuards(JwtAuthGuard)
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.companyService.findOne(+id);
+    return this.companyService.findOne(id);
   }
 
   @Patch(':id')

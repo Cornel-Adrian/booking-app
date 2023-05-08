@@ -16,6 +16,10 @@ export class CompanyRepository {
         return this.companyModel.find(usersFilterQuery);
     }
 
+    async findById(usersFilterQuery: FilterQuery<Company>): Promise<Company[]> {
+        return this.companyModel.findById(usersFilterQuery);
+    }
+
     async create(company: Company): Promise<Company> {
         const newCompany = new this.companyModel(company);
         return newCompany.save();
