@@ -16,6 +16,18 @@ export class OrdersRepository {
         return this.orderModel.find(ordersFilterQuery);
     }
 
+
+    async findById(orderId: string): Promise<Order[]> {
+        const query = { 'orderId': orderId }
+        return this.orderModel.find(query);
+    }
+
+    async findByUserEmail(email: string): Promise<Order[]> {
+        const query = { 'userEmail': email }
+        return this.orderModel.find(query);
+    }
+
+
     async create(order: Order): Promise<Order> {
         const newOrder = new this.orderModel(order);
         return newOrder.save();
@@ -42,13 +54,6 @@ export class OrdersRepository {
     async cancel(id: string): Promise<Order> {
         const query = { 'orderId': id }
         return this.orderModel.findOneAndUpdate(query, { $set: { 'status': Status.Canceled } });
-    }
-
-
-    async findByUserEmail(email: string): Promise<Order[]> {
-        const query = { 'userEmail': email }
-        return this.orderModel.find({ query });
-
     }
 
 }

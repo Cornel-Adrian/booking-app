@@ -18,8 +18,8 @@ export class OrdersController {
   }
 
   @Get('get/:id')
-  findOne(@Param('id') id: string) {
-    return this.ordersService.findOne(+id);
+  findOne(@Param('id') orderId: string) {
+    return this.ordersService.findById(orderId);
   }
 
   @Patch('update/:id')
