@@ -28,13 +28,18 @@ export class OrdersController {
   }
 
   @Patch('complete/:id')
-  complete(@Param('id') id: string, @Body() updateOrderDto: UpdateOrderDto) {
-    return this.ordersService.update(+id, updateOrderDto);
+  complete(@Param('id') id: string) {
+    return this.ordersService.complete(id);
   }
 
   @Patch('accept/:id')
-  accept(@Param('id') id: string, @Body() updateOrderDto: UpdateOrderDto) {
-    return this.ordersService.update(+id, updateOrderDto);
+  accept(@Param('id') id: string) {
+    return this.ordersService.accept(id);
+  }
+
+  @Patch('cancel/:id')
+  cancel(@Param('id') id: string) {
+    return this.ordersService.cancel(id);
   }
 
   @Delete('delete/:id')

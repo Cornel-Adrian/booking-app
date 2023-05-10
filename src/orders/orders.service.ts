@@ -27,6 +27,18 @@ export class OrdersService {
     return this.ordersRepository.find({});
   }
 
+  complete(id: string) {
+    return this.ordersRepository.complete(id);
+  }
+
+  accept(id: string) {
+    return this.ordersRepository.accept(id);
+  }
+
+  cancel(id: string) {
+    return this.ordersRepository.cancel(id);
+  }
+
   findOne(id: number) {
     return `This action returns a #${id} order`;
   }
