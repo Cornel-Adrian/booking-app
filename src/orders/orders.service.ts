@@ -43,6 +43,10 @@ export class OrdersService {
     return `This action returns a #${id} order`;
   }
 
+  findByEmail(email: string) {
+    return this.ordersRepository.findByUserEmail(email);
+  }
+
   update(id: number, updateOrderDto: UpdateOrderDto) {
     return `This action updates a #${id} order`;
   }

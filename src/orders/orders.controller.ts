@@ -46,4 +46,11 @@ export class OrdersController {
   remove(@Param('id') id: string) {
     return this.ordersService.remove(+id);
   }
+
+  @Get('email/:email')
+  findByEmail(@Param('email') email: string) {
+    return this.ordersService.findByEmail(email);
+  }
+
+
 }
