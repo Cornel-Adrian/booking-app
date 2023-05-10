@@ -27,6 +27,16 @@ export class OrdersController {
     return this.ordersService.update(+id, updateOrderDto);
   }
 
+  @Patch('complete/:id')
+  complete(@Param('id') id: string, @Body() updateOrderDto: UpdateOrderDto) {
+    return this.ordersService.update(+id, updateOrderDto);
+  }
+
+  @Patch('accept/:id')
+  accept(@Param('id') id: string, @Body() updateOrderDto: UpdateOrderDto) {
+    return this.ordersService.update(+id, updateOrderDto);
+  }
+
   @Delete('delete/:id')
   remove(@Param('id') id: string) {
     return this.ordersService.remove(+id);

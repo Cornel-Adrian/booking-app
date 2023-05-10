@@ -1,6 +1,6 @@
 export enum Status{
     New = 'new',
-    Pending = 'pending',
+    Pending = 'accepted',
     Done = 'done',
     Canceled = 'canceled'
 }
