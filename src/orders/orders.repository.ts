@@ -44,4 +44,11 @@ export class OrdersRepository {
         return this.orderModel.findOneAndUpdate(query, { $set: { 'status': Status.Canceled } });
     }
 
+
+    async findByUserEmail(email: string): Promise<Order[]> {
+        const query = { 'userEmail': email }
+        return this.orderModel.find({ query });
+
+    }
+
 }
