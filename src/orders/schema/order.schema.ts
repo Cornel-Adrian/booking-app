@@ -11,11 +11,11 @@ export class Order {
     @Prop()
     orderId: string;
     @Prop()
-    userId: string;
+    userEmail: string;
     @Prop()
     companyId: string;
     @Prop()
-    status: Status[];
+    status: Status;
     @Prop()
     serviceName: string;
     @Prop()

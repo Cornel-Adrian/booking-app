@@ -10,7 +10,7 @@ export class CompanyController {
 
   @Post('create')
   create(@Body() createCompanyDto: CreateCompanyDto) {
-    return this.companyService.create(createCompanyDto.name , createCompanyDto.email, createCompanyDto.description, createCompanyDto.services);
+    return this.companyService.create(createCompanyDto.name, createCompanyDto.email, createCompanyDto.description, createCompanyDto.services);
   }
 
 
@@ -18,6 +18,18 @@ export class CompanyController {
   @Get('/all')
   findAll() {
     return this.companyService.findAll();
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('/all/basic')
+  FindBasic() {
+    return this.companyService.findAllBasic();
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('/find/:description')
+  findByDescription(@Param('description') description: string) {
+    return this.companyService.findByDescription(description);
   }
 
 

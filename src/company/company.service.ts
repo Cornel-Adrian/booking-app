@@ -31,6 +31,16 @@ export class CompanyService {
     return this.companyRepository.find({});
   }
 
+
+  findAllBasic() {
+    return this.companyRepository.findBasic();
+  }
+
+  findByDescription(description: string) {
+    console.log(description);
+    return this.companyRepository.findByDescription(description);
+  }
+
   findOne(companyId: string) {
     return this.companyRepository.findOne({ "companyId": companyId });
   }

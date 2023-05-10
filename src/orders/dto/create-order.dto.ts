@@ -1,8 +1,9 @@
 export class CreateOrderDto {
     orderId: string;
-    userId: string;
-    desiredDate: string; 
     companyId: string;
-    service: string;
+    userEmail: string;
+    desiredDate: string; 
+
+    serviceName: string;
     price: number;
 }

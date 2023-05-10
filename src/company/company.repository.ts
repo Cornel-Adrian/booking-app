@@ -16,8 +16,14 @@ export class CompanyRepository {
         return this.companyModel.find(usersFilterQuery);
     }
 
-    async findById(usersFilterQuery: FilterQuery<Company>): Promise<Company[]> {
-        return this.companyModel.findById(usersFilterQuery);
+    async findByDescription(description: string): Promise<Company[]> {
+        const query = { 'description': { $regex: description, $options: 'i' } }
+        const results = await this.companyModel.find(query).exec();
+        return results;
+    }
+
+    async findById(companiesFilterQuery: FilterQuery<Company>): Promise<Company[]> {
+        return this.companyModel.findById(companiesFilterQuery);
     }
 
     async create(company: Company): Promise<Company> {
@@ -29,6 +35,10 @@ export class CompanyRepository {
     async findOneAndUpdate(companyFilterQuery: FilterQuery<Company>, company: Partial<Company>): Promise<Company> {
         return this.companyModel.findOneAndUpdate(companyFilterQuery, company);
 
+    }
+
+    async findBasic(): Promise<Company[]> {
+        return await this.companyModel.find().select('companyId name description').exec();
     }
 
 

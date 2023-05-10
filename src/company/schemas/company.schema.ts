@@ -24,7 +24,7 @@ export class Company {
     companyId: string;
     @Prop()
     name: string;
-    @Prop()
+    @Prop({ unique: true })
     email: string;
     @Prop()
     description: string;
