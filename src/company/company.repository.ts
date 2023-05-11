@@ -18,7 +18,7 @@ export class CompanyRepository {
 
     async findByDescription(description: string): Promise<Company[]> {
         const query = { 'description': { $regex: description, $options: 'i' } }
-        const results = await this.companyModel.find(query).exec();
+        const results = await this.companyModel.find(query).select('companyId name description').exec();
         return results;
     }
 
