@@ -37,7 +37,6 @@ export class CompanyService {
   }
 
   findByDescription(description: string) {
-    console.log(description);
     return this.companyRepository.findByDescription(description);
   }
 
@@ -51,5 +50,9 @@ export class CompanyService {
 
   remove(id: number) {
     return `This action removes a #${id} company`;
+  }
+
+  findCompanyIdByEmail(email: string){
+    return this.companyRepository.findCompanyIdByEmail(email);
   }
 }

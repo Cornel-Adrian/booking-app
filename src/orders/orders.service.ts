@@ -55,6 +55,9 @@ export class OrdersService {
     return `This action removes a #${id} order`;
   }
 
+  findByCompanyId(companyId: string){
+    return this.ordersRepository.findByCompanyId(companyId);
+  }
 
   findById(orderId: string) {
     return this.ordersRepository.findById(orderId);

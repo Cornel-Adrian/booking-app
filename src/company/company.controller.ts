@@ -34,6 +34,13 @@ export class CompanyController {
 
 
   @UseGuards(JwtAuthGuard)
+  @Get('/findCompanyId/:email')
+  findCompanyIdByEmail(@Param('email') email: string) {
+    return this.companyService.findCompanyIdByEmail(email);
+  }
+
+
+  @UseGuards(JwtAuthGuard)
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.companyService.findOne(id);

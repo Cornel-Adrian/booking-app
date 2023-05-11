@@ -42,4 +42,10 @@ export class CompanyRepository {
     }
 
 
+    async findCompanyIdByEmail(email: string): Promise<Company> {
+        const query = { 'email': email }
+        const results = await this.companyModel.findOne(query).select('companyId').exec();
+        return results;
+    }
+
 }

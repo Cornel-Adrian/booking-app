@@ -27,6 +27,11 @@ export class OrdersRepository {
         return this.orderModel.find(query);
     }
 
+    async findByCompanyId(companyId: string): Promise<Order[]> {
+        const query = { 'companyId': companyId }
+        return this.orderModel.find(query);
+    }
+
 
     async create(order: Order): Promise<Order> {
         const newOrder = new this.orderModel(order);

@@ -17,6 +17,11 @@ export class OrdersController {
     return this.ordersService.findAll();
   }
 
+  @Get('findByCompanyId/:companyId')
+  findByCompanyId(@Param('companyId') companyId: string){
+    return this.ordersService.findByCompanyId(companyId);
+  }
+
   @Get('get/:id')
   findOne(@Param('id') orderId: string) {
     return this.ordersService.findById(orderId);
