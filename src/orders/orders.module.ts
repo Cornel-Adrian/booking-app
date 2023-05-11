@@ -4,9 +4,10 @@ import { OrdersController } from './orders.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import {Order, OrderSchema} from './schema/order.schema';
 import { OrdersRepository } from './orders.repository';
+import { CompanyModule } from 'src/company/company.module';
 
 @Module({
-  imports:[MongooseModule.forFeature([{name: Order.name, schema: OrderSchema}])],
+  imports:[MongooseModule.forFeature([{name: Order.name, schema: OrderSchema}]) , CompanyModule],
   controllers: [OrdersController],
   providers: [OrdersService, OrdersRepository],
   exports: [OrdersService]

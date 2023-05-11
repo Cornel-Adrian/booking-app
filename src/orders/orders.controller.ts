@@ -2,10 +2,11 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { OrdersService } from './orders.service';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
+import { CompanyService } from 'src/company/company.service';
 
 @Controller('orders')
 export class OrdersController {
-  constructor(private readonly ordersService: OrdersService) { }
+  constructor(private readonly ordersService: OrdersService, private readonly companyService: CompanyService) { }
 
   @Post('create')
   create(@Body() createOrderDto: CreateOrderDto) {
@@ -18,7 +19,13 @@ export class OrdersController {
   }
 
   @Get('findByCompanyId/:companyId')
-  findByCompanyId(@Param('companyId') companyId: string){
+  findByCompanyId(@Param('companyId') companyId: string) {
+    return this.ordersService.findByCompanyId(companyId);
+  }
+
+  @Get('findByCompanyEmail/:email')
+  async findByCompanyEmail(@Param('email') email: string) {
+    let { companyId } = await this.companyService.findCompanyIdByEmail(email);
     return this.ordersService.findByCompanyId(companyId);
   }
 
