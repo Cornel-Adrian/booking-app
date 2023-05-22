@@ -29,10 +29,10 @@ export class ReviewRepository {
     async findAverageRatingByCompanyId(companyId: string): Promise<number> {
         const result = await this.reviewModel.aggregate([
           { $match: { companyId: companyId } },
-          { $group: { _id: null, rating: { $avg: '$rating' } } },
+          { $group: { _id: null, averageRating: { $avg: '$rating' } } },
         ]);
-    
-        const average = result[0]?.rating || 0;
+        console.log(result);
+        const average = result[0]?.averageRating || 0;
         return average;
       }
 

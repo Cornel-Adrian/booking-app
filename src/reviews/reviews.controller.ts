@@ -13,8 +13,9 @@ export class ReviewsController {
 
     let order = await this.ordersService.findById(createReviewDto.orderId);
     let companyId = order[0]['companyId'];
+    console.log(companyId);
 
-    return this.reviewsService.create(createReviewDto.orderId, companyId['companyId'], createReviewDto.name, createReviewDto.rating, createReviewDto.message);
+    return this.reviewsService.create(createReviewDto.orderId, companyId, createReviewDto.name, createReviewDto.rating, createReviewDto.message);
   }
 
   @Get()
