@@ -31,7 +31,7 @@ export class ReviewRepository {
           { $match: { companyId: companyId } },
           { $group: { _id: null, averageRating: { $avg: '$rating' } } },
         ]);
-        console.log(result);
+        
         const average = result[0]?.averageRating || 0;
         return average;
       }
