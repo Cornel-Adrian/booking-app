@@ -1,9 +1,12 @@
 import { WebSocketGateway, WebSocketServer, SubscribeMessage, OnGatewayConnection } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
 import { ChatService } from './chats.service';
-import { Message } from './schemas/message.schema';
 
-@WebSocketGateway()
+@WebSocketGateway({
+    cors:{
+        origin:['http://localhost:3100'],
+    },
+})
 export class ChatGateway implements OnGatewayConnection {
     @WebSocketServer()
     server: Server;
@@ -15,6 +18,7 @@ export class ChatGateway implements OnGatewayConnection {
         const messages = await this.chatService.getMessagesByOrderId(orderId);
         client.join(orderId);
         client.emit('messages', messages);
+        console.log("we got here");
     }
 
     @SubscribeMessage('message')
