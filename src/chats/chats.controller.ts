@@ -8,7 +8,7 @@ export class ChatsController {
 
   @Post("sendMessage")
   create(@Body() createChatDto: CreateChatDto) {
-    return this.chatsService.createMessage(createChatDto.orderId, createChatDto.sender, createChatDto.recipient, createChatDto.content);
+    return this.chatsService.createMessage(createChatDto.orderId, createChatDto.sender, createChatDto.content);
   }
 
   @Get("/getChat/:orderId")

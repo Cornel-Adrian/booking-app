@@ -5,10 +5,10 @@ import { Message } from './schemas/message.schema';
 
 @Injectable()
 export class ChatService {
-  constructor(@InjectModel('Message') private readonly messageModel: Model<Message>) {}
+  constructor(@InjectModel('Message') private readonly messageModel: Model<Message>) { }
 
-  async createMessage(orderId: string, sender: string, recipient: string, content: string): Promise<Message> {
-    const message = new this.messageModel({ orderId, sender, recipient, content });
+  async createMessage(orderId: string, sender: string, content: string): Promise<Message> {
+    const message = new this.messageModel({ orderId, sender, content });
     return message.save();
   }
 

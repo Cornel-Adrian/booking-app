@@ -10,9 +10,6 @@ export class Message extends Document {
   sender: string;
 
   @Prop()
-  recipient: string;
-
-  @Prop()
   content: string;
 
   @Prop({ default: Date.now })
