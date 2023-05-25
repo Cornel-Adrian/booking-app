@@ -12,7 +12,7 @@ export class ChatsController {
   }
 
   @Get("/getChat/:orderId")
-  getChat(@Param() orderId) {
+  getChat(@Param('orderId') orderId: string) {
     return this.chatsService.getMessagesByOrderId(orderId);
   }
 

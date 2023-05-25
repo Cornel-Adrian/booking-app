@@ -3,8 +3,8 @@ import { Server, Socket } from 'socket.io';
 import { ChatService } from './chats.service';
 
 @WebSocketGateway({
-    cors:{
-        origin:['http://localhost:3100'],
+    cors: {
+        origin: ['http://localhost:3100'],
     },
 })
 export class ChatGateway implements OnGatewayConnection {
@@ -18,14 +18,13 @@ export class ChatGateway implements OnGatewayConnection {
         const messages = await this.chatService.getMessagesByOrderId(orderId);
         client.join(orderId);
         client.emit('messages', messages);
-        console.log("we got here");
     }
 
-    @SubscribeMessage('message')
+    @SubscribeMessage('newMessage')
     async handleMessage(client: Socket, messageDto: { sender: string; content: string }) {
         const { sender, content } = messageDto;
         const orderId = client.handshake.query.orderId as string;
         const message = await this.chatService.createMessage(orderId, sender, content);
-        this.server.to(orderId).emit('newMessage', message);
+        this.server.to(orderId).emit('onMessage', message);
     }
 }

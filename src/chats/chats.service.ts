@@ -13,6 +13,7 @@ export class ChatService {
   }
 
   async getMessagesByOrderId(orderId: string): Promise<Message[]> {
-    return this.messageModel.find({ orderId }).exec();
+    const query = { 'orderId': orderId }
+    return this.messageModel.find(query);
   }
 }
