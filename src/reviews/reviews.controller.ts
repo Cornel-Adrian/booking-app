@@ -1,7 +1,6 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { ReviewsService } from './reviews.service';
 import { CreateReviewDto } from './dto/create-review.dto';
-import { UpdateReviewDto } from './dto/update-review.dto';
 import { OrdersService } from 'src/orders/orders.service';
 
 @Controller('reviews')
@@ -17,10 +16,6 @@ export class ReviewsController {
     return this.reviewsService.create(createReviewDto.orderId, companyId, createReviewDto.name, createReviewDto.rating, createReviewDto.message);
   }
 
-  @Get()
-  findAll() {
-    return this.reviewsService.findAll();
-  }
 
   @Get('findByCompanyId/:companyId')
   findByCompanyId(@Param('companyId') companyId: string) {
@@ -33,18 +28,4 @@ export class ReviewsController {
     return this.reviewsService.getAverage(companyId);
   }
 
-  @Get('get/:id')
-  findOne(@Param('id') id: string) {
-    return this.reviewsService.findOne(+id);
-  }
-
-  @Patch('update/:id')
-  update(@Param('id') id: string, @Body() updateReviewDto: UpdateReviewDto) {
-    return this.reviewsService.update(+id, updateReviewDto);
-  }
-
-  @Delete('delete/:id')
-  remove(@Param('id') id: string) {
-    return this.reviewsService.remove(+id);
-  }
 }

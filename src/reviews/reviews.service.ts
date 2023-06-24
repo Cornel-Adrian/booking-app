@@ -1,8 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { UpdateReviewDto } from './dto/update-review.dto';
 import { ReviewRepository } from './reviews.repository';
 import { v4 as uuidv4 } from 'uuid';
-import { OrdersRepository } from 'src/orders/orders.repository';
 
 @Injectable()
 export class ReviewsService {
@@ -34,19 +32,4 @@ export class ReviewsService {
     return this.reviewRepository.findAverageRatingByCompanyId(companyId);
   }
 
-  findAll() {
-    return `This action returns all reviews`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} review`;
-  }
-
-  update(id: number, updateReviewDto: UpdateReviewDto) {
-    return `This action updates a #${id} review`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} review`;
-  }
 }

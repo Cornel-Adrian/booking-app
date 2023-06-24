@@ -21,9 +21,9 @@ export class ChatGateway implements OnGatewayConnection {
     }
 
     @SubscribeMessage('newMessage')
-    async handleMessage(client: Socket, messageDto: { sender: string; content: string }) {
-        const { sender, content } = messageDto;
-        const orderId = client.handshake.query.orderId as string;
+    async handleMessage(messageDto: { sender: string; content: string, orderId: string }) {
+        const { sender, content, orderId } = messageDto;
+        console.log("Am ajuns aici ?" + orderId)
         const message = await this.chatService.createMessage(orderId, sender, content);
         this.server.to(orderId).emit('onMessage', message);
     }

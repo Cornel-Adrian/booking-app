@@ -8,6 +8,7 @@ export class ChatsController {
 
   @Post("sendMessage")
   create(@Body() createChatDto: CreateChatDto) {
+    console.log("are we there yet ?");
     return this.chatsService.createMessage(createChatDto.orderId, createChatDto.sender, createChatDto.content);
   }
 
