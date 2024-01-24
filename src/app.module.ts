@@ -16,7 +16,6 @@ import authConfig from './config/auth/auth.config';
 
 @Module({
   imports: [
-    UsersModule,
     AuthModule,
     ConfigModule.forRoot({
       isGlobal: true,
@@ -26,7 +25,7 @@ import authConfig from './config/auth/auth.config';
       imports: [PostgresConfigModule],
       useClass: PostgresConfigService,
       inject: [PostgresConfigService],
-    }), OrdersModule, CompanyModule, ReviewsModule, ServicesModule],
+    }), UsersModule, OrdersModule, CompanyModule, ReviewsModule, ServicesModule],
   controllers: [AppController],
   providers: [AppService],
 })

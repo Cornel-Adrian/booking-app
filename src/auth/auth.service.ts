@@ -1,6 +1,5 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { UsersService } from '../users/users.service';
-import { UserSchema } from '../users/schemas/user.schema';
 import RefreshToken from './entities/refresh-token.entity';
 import { sign, verify } from 'jsonwebtoken';
 import { User } from 'src/users/entity/user.entity';
@@ -97,7 +96,7 @@ export class AuthService {
     if (!refreshToken) {
       return;
     }
-    // delete refreshtoken from db
+    
     this.refreshTokens = this.refreshTokens.filter(
       (refreshToken) => refreshToken.id !== refreshToken.id,
     );

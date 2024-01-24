@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, IsNull } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class User {
@@ -8,7 +8,7 @@ export class User {
     @Column()
     name: string;
 
-    @Column()
+    @Column({ name: "email", nullable: true })
     email: string;
 
     @Column()
@@ -16,4 +16,9 @@ export class User {
 
     @Column()
     role: string;
+
+
+    constructor(user: Partial<User>){
+        Object.assign(this, user);
+    }
 }

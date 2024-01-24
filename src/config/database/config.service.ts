@@ -15,8 +15,6 @@ export class PostgresConfigService implements TypeOrmOptionsFactory {
         const dbPassword = this.configService.get<string>('database.password');
         const dbDatabase = this.configService.get<any>('database.database');
 
-        console.log("Db username is:", dbDatabase);
-
         return {
             type: 'postgres',
             host: dbHost,
