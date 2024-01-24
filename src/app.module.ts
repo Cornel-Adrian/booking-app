@@ -7,19 +7,18 @@ import { UsersModule } from './users/users.module';
 import { OrdersModule } from './orders/orders.module';
 import { CompanyModule } from './company/company.module';
 import { ReviewsModule } from './reviews/reviews.module';
-import { ChatModule } from './chats/chats.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PostgresConfigModule } from './config/database/config.module';
 import { PostgresConfigService } from './config/database/config.service';
 import { ServicesModule } from './services/services.module';
 
 @Module({
-  imports: [UsersModule, AuthModule, ConfigModule.forRoot(),
+  imports: [UsersModule, AuthModule, ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRootAsync({
       imports: [PostgresConfigModule],
       useClass: PostgresConfigService,
       inject: [PostgresConfigService],
-    }), OrdersModule, CompanyModule, ReviewsModule, ChatModule, ServicesModule],
+    }), OrdersModule, CompanyModule, ReviewsModule, ServicesModule],
   controllers: [AppController],
   providers: [AppService],
 })

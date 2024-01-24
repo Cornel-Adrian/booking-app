@@ -20,10 +20,4 @@ export const CompanySchema = new EntitySchema<Company>({
             type: String,
         },
     },
-    relations: {
-        services: {
-            type: "many-to-many",
-            target: "Services"
-        }
-    }
 });

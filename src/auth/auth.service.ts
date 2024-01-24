@@ -1,8 +1,9 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { UsersService } from '../users/users.service';
-import { User } from '../users/schemas/user.schema';
+import { UserSchema } from '../users/schemas/user.schema';
 import RefreshToken from './entities/refresh-token.entity';
 import { sign, verify } from 'jsonwebtoken';
+import { User } from 'src/users/entity/user.entity';
 
 @Injectable()
 export class AuthService {
@@ -64,7 +65,7 @@ export class AuthService {
   private async newRefreshAndAccessToken(
     user: User,
     values: { userAgent: string; ipAddress: string },
-  ): Promise<{ accessToken: string, role: string; refreshToken: string }> {
+  ): Promise<{ accessToken: string, refreshToken: string }> {
     const refreshObject = new RefreshToken({
       id:
         this.refreshTokens.length === 0
@@ -77,7 +78,6 @@ export class AuthService {
 
     return {
       refreshToken: refreshObject.sign(),
-      role: user.role,
       accessToken: sign(
         {
           userId: user.userId,

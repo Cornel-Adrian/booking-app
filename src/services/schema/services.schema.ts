@@ -22,7 +22,5 @@ export const ServicesSchema = new EntitySchema<Service>({
         companyId:{
             type: Number,
         },
-
     }
-
 })

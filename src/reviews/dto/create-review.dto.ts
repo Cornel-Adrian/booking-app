@@ -1,5 +1,5 @@
 export class CreateReviewDto {
-    orderId: string;
+    orderId: number;
     name: string;
     rating: number;
     message: string;

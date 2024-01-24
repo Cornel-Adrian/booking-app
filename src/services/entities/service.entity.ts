@@ -1,5 +1,4 @@
-import { Company } from "src/company/entity/company.entity";
-import { Entity, Column, PrimaryGeneratedColumn, ManyToMany, JoinTable } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn} from "typeorm";
 
 @Entity()
 export class Service {
@@ -15,7 +14,6 @@ export class Service {
     @Column()
     price: number;
 
-    @ManyToMany(() => Company, (company) => company.id, { cascade: true })
     @Column()
     companyId: number;
 

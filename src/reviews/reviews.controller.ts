@@ -18,13 +18,13 @@ export class ReviewsController {
 
 
   @Get('findByCompanyId/:companyId')
-  findByCompanyId(@Param('companyId') companyId: string) {
+  findByCompanyId(@Param('companyId') companyId: number) {
     return this.reviewsService.findByCompanyId(companyId);
   }
 
 
   @Get('average/:companyId')
-  getAverageByCompanyId(@Param('companyId') companyId: string) {
+  getAverageByCompanyId(@Param('companyId') companyId: number) {
     return this.reviewsService.getAverage(companyId);
   }
 

@@ -17,8 +17,9 @@ export class PostgresConfigService implements TypeOrmOptionsFactory {
             password: 'admin',
             database: 'booking-app',
             entities: ['dist/**/**/*.entity{.ts,.js}'],
-            synchronize: false,
+            synchronize: true,
             autoLoadEntities: true,
+            logging: 'all',
         }
     }
 }

@@ -1,14 +1,14 @@
 import { Module } from '@nestjs/common';
 import { CompanyService } from './company.service';
 import { CompanyController } from './company.controller';
-import { CompanySchema } from './schemas/company.schema'
-import { CompanyRepository } from './company.repository'
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { Service } from 'src/services/entities/service.entity';
+import { Company } from './entity/company.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([CompanySchema])],
+  imports: [TypeOrmModule.forFeature([Company, Service])],
   controllers: [CompanyController],
-  providers: [CompanyService, CompanyRepository],
+  providers: [CompanyService],
   exports: [CompanyService]
 })
 export class CompanyModule { }

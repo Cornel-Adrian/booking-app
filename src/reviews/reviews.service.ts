@@ -1,35 +1,37 @@
 import { Injectable } from '@nestjs/common';
-import { ReviewRepository } from './reviews.repository';
-import { v4 as uuidv4 } from 'uuid';
+import { Review } from './entities/review.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class ReviewsService {
 
 
-  constructor(private readonly reviewRepository: ReviewRepository) { }
+  constructor(
+    @InjectRepository(Review)
+    private reviewRepository: Repository<Review>) { }
 
 
-  create(orderId: string, companyId: string, name: string, rating: number, message: string) {
+  create(orderId: number, companyId: number, name: string, rating: number, message: string) {
 
 
     return this.reviewRepository.create({
-      reviewId: uuidv4(),
-      companyId: companyId,
       orderId: orderId,
+      companyId: companyId,
       name: name,
       rating: rating,
-      message: message
+      message: message,
     })
   }
 
 
-  findByCompanyId(companyId: string) {
-    return this.reviewRepository.findByCompanyId(companyId);
+  findByCompanyId(companyId: number) {
+    return this.reviewRepository.findOneBy({companyId: companyId});
   }
 
 
-  getAverage(companyId: string) {
-    return this.reviewRepository.findAverageRatingByCompanyId(companyId);
+  getAverage(companyId: number) {
+    return this.reviewRepository.average("rating", {companyId: companyId});
   }
 
 }
