@@ -6,7 +6,6 @@ class Service {
 
 
 export class CreateCompanyDto {
-    companyId: string;
     name: string;
     email: string;
     description: string;

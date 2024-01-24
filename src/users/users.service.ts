@@ -1,32 +1,29 @@
 import { Injectable } from '@nestjs/common';
-import { User } from './schemas/user.schema';
-import { UsersRepository } from './users.repository';
-import { v4 as uuidv4 } from 'uuid';
-import { Role } from './roles/role.enum';
-
+import { User } from './entity/user.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class UsersService {
 
+    constructor(
+        @InjectRepository(User)
+        private userRepository: Repository<User>) { }
 
-    constructor(private readonly userRepository: UsersRepository) { }
-
-    async getUserById(userId: string): Promise<User> {
-        return this.userRepository.findOne({ userId });
+    async getUserById(userId: number): Promise<User> {
+        return this.userRepository.findOneBy({ userId });
     }
 
     async getUserByEmail(email: string): Promise<User> {
-        return this.userRepository.findOne({ email });
+        return this.userRepository.findOneBy({ email });
     }
 
 
     async createUser(email: string, password: string, name: string): Promise<User> {
         return this.userRepository.create({
-            userId: uuidv4(),
             email: email,
             password: password,
             name: name,
-            role: Role.User,
         })
     }
 

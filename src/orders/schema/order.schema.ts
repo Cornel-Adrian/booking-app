@@ -1,29 +1,32 @@
-import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { Document } from 'mongoose'
-import { Status } from "./status.enum";
+import { EntitySchema } from "typeorm";
+import { Order } from "../entity/order.entity";
 
-
-export type OrderDocument = Order & Document;
-
-@Schema()
-export class Order {
-
-    @Prop()
-    orderId: string;
-    @Prop()
-    userEmail: string;
-    @Prop()
-    companyId: string;
-    @Prop()
-    status: Status;
-    @Prop()
-    serviceName: string;
-    @Prop()
-    desiredDate: string; 
-    @Prop()
-    price: number; 
-}
-
-
-
-export const OrderSchema = SchemaFactory.createForClass(Order);
+export const OrderSchema = new EntitySchema<Order>({
+    name: "Order",
+    target: Order,
+    columns: {
+        id: {
+            type: Number,
+            primary: true,
+            generated: true,
+        },
+        userEmail: {
+            type: String,
+        },
+        companyId: {
+            type: Number,
+        },
+        status: {
+            type: String,
+        },
+        serviceName: {
+            type: String,
+        },
+        desiredDate: {
+            type: String,
+        },
+        price: {
+            type: Number,
+        },
+    },
+});

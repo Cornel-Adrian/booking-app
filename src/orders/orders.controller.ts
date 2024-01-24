@@ -1,7 +1,6 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { OrdersService } from './orders.service';
 import { CreateOrderDto } from './dto/create-order.dto';
-import { UpdateOrderDto } from './dto/update-order.dto';
 import { CompanyService } from 'src/company/company.service';
 
 @Controller('orders')
@@ -19,43 +18,38 @@ export class OrdersController {
   }
 
   @Get('findByCompanyId/:companyId')
-  findByCompanyId(@Param('companyId') companyId: string) {
+  findByCompanyId(@Param('companyId') companyId: number) {
     return this.ordersService.findByCompanyId(companyId);
   }
 
   @Get('findByCompanyEmail/:email')
   async findByCompanyEmail(@Param('email') email: string) {
-    let { companyId } = await this.companyService.findCompanyIdByEmail(email);
-    return this.ordersService.findByCompanyId(companyId);
+    let { id } = await this.companyService.findCompanyIdByEmail(email);
+    return this.ordersService.findByCompanyId(id);
   }
 
   @Get('get/:id')
-  findOne(@Param('id') orderId: string) {
+  findOne(@Param('id') orderId: number) {
     return this.ordersService.findById(orderId);
   }
 
-  @Patch('update/:id')
-  update(@Param('id') id: string, @Body() updateOrderDto: UpdateOrderDto) {
-    return this.ordersService.update(+id, updateOrderDto);
-  }
-
   @Patch('complete/:id')
-  complete(@Param('id') id: string) {
+  complete(@Param('id') id: number) {
     return this.ordersService.complete(id);
   }
 
   @Patch('accept/:id')
-  accept(@Param('id') id: string) {
+  accept(@Param('id') id: number) {
     return this.ordersService.accept(id);
   }
 
   @Patch('cancel/:id')
-  cancel(@Param('id') id: string) {
+  cancel(@Param('id') id: number) {
     return this.ordersService.cancel(id);
   }
 
   @Delete('delete/:id')
-  remove(@Param('id') id: string) {
+  remove(@Param('id') id: number) {
     return this.ordersService.remove(+id);
   }
 

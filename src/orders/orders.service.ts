@@ -1,21 +1,22 @@
 import { Injectable } from '@nestjs/common';
 import { UpdateOrderDto } from './dto/update-order.dto';
-import { OrdersRepository } from './orders.repository';
-import { v4 as uuidv4 } from 'uuid';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { Status } from './schema/status.enum';
+import { Order } from './entity/order.entity';
 
 @Injectable()
 export class OrdersService {
 
 
-  constructor(private readonly ordersRepository: OrdersRepository) { }
+  constructor(
+    @InjectRepository(Order)
+    private ordersRepository: Repository<Order>) { }
 
-  create(userEmail: string, companyId: string, serviceName: string, desiredDate: string, price: number) {
+  async create(userEmail: string, companyId: number, serviceName: string, desiredDate: string, price: number) {
     return this.ordersRepository.create({
-      orderId: uuidv4(),
       userEmail: userEmail,
       companyId: companyId,
-      status: Status.New,
       serviceName: serviceName,
       desiredDate: desiredDate,
       price: price
@@ -26,39 +27,37 @@ export class OrdersService {
     return this.ordersRepository.find({});
   }
 
-  complete(id: string) {
-    return this.ordersRepository.complete(id);
+  complete(id: number) {
+    return this.ordersRepository.update({ id: id }, { status: Status.Done });
   }
 
-  accept(id: string) {
-    return this.ordersRepository.accept(id);
+  accept(id: number) {
+    return this.ordersRepository.update({ id: id }, { status: Status.Pending });
   }
 
-  cancel(id: string) {
-    return this.ordersRepository.cancel(id);
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} order`;
+  cancel(id: number) {
+    return this.ordersRepository.update({ id: id }, { status: Status.Canceled });
   }
 
   findByEmail(email: string) {
-    return this.ordersRepository.findByUserEmail(email);
-  }
-
-  update(id: number, updateOrderDto: UpdateOrderDto) {
-    return `This action updates a #${id} order`;
+    return this.ordersRepository.findBy({
+      userEmail: email,
+    });
   }
 
   remove(id: number) {
-    return `This action removes a #${id} order`;
+    return this.ordersRepository.delete({ id: id })
   }
 
-  findByCompanyId(companyId: string){
-    return this.ordersRepository.findByCompanyId(companyId);
+  findByCompanyId(companyId: number) {
+    return this.ordersRepository.findBy({
+      companyId: companyId,
+    });
   }
 
-  findById(orderId: string) {
-    return this.ordersRepository.findById(orderId);
+  findById(orderId: number) {
+    return this.ordersRepository.findBy({
+      id: orderId,
+    });
   }
 }

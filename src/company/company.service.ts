@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { UpdateCompanyDto } from './dto/update-company.dto';
-import { CompanyRepository } from './company.repository'
-import { v4 as uuidv4 } from 'uuid';
-import { Company } from './schemas/company.schema';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Like, Repository } from 'typeorm';
+import { Company } from './entity/company.entity';
 
 
 class Service {
@@ -13,12 +13,12 @@ class Service {
 
 @Injectable()
 export class CompanyService {
+  constructor(
+    @InjectRepository(Company)
+    private companyRepository: Repository<Company>,) { }
 
-  constructor(private readonly companyRepository: CompanyRepository) { }
-
-  create(name: string, email: string, description: string, services: Service[]): Promise<Company> {
+  async create(name: string, email: string, description: string, services: Service[]): Promise<Company> {
     return this.companyRepository.create({
-      companyId: uuidv4(),
       name: name,
       email: email,
       description: description,
@@ -33,15 +33,21 @@ export class CompanyService {
 
 
   findAllBasic() {
-    return this.companyRepository.findBasic();
+    return this.companyRepository.find({ select: { id: true, name: true, description: true } });
   }
 
   findByDescription(description: string) {
-    return this.companyRepository.findByDescription(description);
+    return this.companyRepository.findBy({
+      description: Like("%" + description + "%"),
+    });
   }
 
-  findOne(companyId: string) {
-    return this.companyRepository.findOne({ "companyId": companyId });
+  findOne(companyId: number) {
+    return this.companyRepository.findOne({
+      where: {
+        id: companyId
+      }
+    });
   }
 
   update(id: number, updateCompanyDto: UpdateCompanyDto) {
@@ -52,7 +58,7 @@ export class CompanyService {
     return `This action removes a #${id} company`;
   }
 
-  findCompanyIdByEmail(email: string){
-    return this.companyRepository.findCompanyIdByEmail(email);
+  findCompanyIdByEmail(email: string) {
+    return this.companyRepository.findOneBy({ email: email });
   }
 }
