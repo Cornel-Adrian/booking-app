@@ -11,9 +11,17 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { PostgresConfigModule } from './config/database/config.module';
 import { PostgresConfigService } from './config/database/config.service';
 import { ServicesModule } from './services/services.module';
+import databaseConfig from './config/database/database.config';
+import authConfig from './config/auth/auth.config';
 
 @Module({
-  imports: [UsersModule, AuthModule, ConfigModule.forRoot({ isGlobal: true }),
+  imports: [
+    UsersModule,
+    AuthModule,
+    ConfigModule.forRoot({
+      isGlobal: true,
+      load: [databaseConfig, authConfig]
+    }),
     TypeOrmModule.forRootAsync({
       imports: [PostgresConfigModule],
       useClass: PostgresConfigService,

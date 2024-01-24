@@ -19,6 +19,9 @@ export const UserSchema = new EntitySchema<User>({
         },
         password: {
             type: String,
+        },
+        role:{
+            type: String,
         }
     }
 })

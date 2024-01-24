@@ -9,7 +9,7 @@ import { User } from 'src/users/entity/user.entity';
 export class AuthService {
   private refreshTokens: RefreshToken[] = [];
 
-  constructor(private readonly userService: UsersService) { }
+  constructor(private userService: UsersService) { }
 
   async refresh(refreshStr: string): Promise<string | undefined> {
     const refreshToken = await this.retrieveRefreshToken(refreshStr);
@@ -48,7 +48,7 @@ export class AuthService {
   async login(
     email: string,
     password: string,
-    values: { userAgent: string; ipAddress: string },
+    values?: { userAgent: string; ipAddress: string },
   ): Promise<{ accessToken: string; refreshToken: string } | undefined> {
     const user = await this.userService.getUserByEmail(email);
     if (!user) {
@@ -65,7 +65,7 @@ export class AuthService {
   private async newRefreshAndAccessToken(
     user: User,
     values: { userAgent: string; ipAddress: string },
-  ): Promise<{ accessToken: string, refreshToken: string }> {
+  ): Promise<{ accessToken: string, role: string, refreshToken: string }> {
     const refreshObject = new RefreshToken({
       id:
         this.refreshTokens.length === 0
@@ -78,6 +78,7 @@ export class AuthService {
 
     return {
       refreshToken: refreshObject.sign(),
+      role: user.role,
       accessToken: sign(
         {
           userId: user.userId,
