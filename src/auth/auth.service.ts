@@ -55,7 +55,7 @@ export class AuthService {
     }
 
     if (user.password !== password) {
-      throw new HttpException('Server error', HttpStatus.BAD_REQUEST)
+      throw new HttpException('Incorrect Password', HttpStatus.BAD_REQUEST)
     }
 
     return this.newRefreshAndAccessToken(user, values);
