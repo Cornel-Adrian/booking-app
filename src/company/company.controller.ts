@@ -10,7 +10,7 @@ export class CompanyController {
 
   @Post('create')
   create(@Body() createCompanyDto: CreateCompanyDto) {
-    return this.companyService.create(createCompanyDto.name, createCompanyDto.email, createCompanyDto.description, createCompanyDto.services);
+    return this.companyService.create(createCompanyDto.name, createCompanyDto.email, createCompanyDto.description);
   }
 
 
@@ -43,16 +43,8 @@ export class CompanyController {
   @UseGuards(JwtAuthGuard)
   @Get(':id')
   findOne(@Param('id') id: number) {
+    console.warn("Id is:", id);
     return this.companyService.findOne(id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCompanyDto: UpdateCompanyDto) {
-    return this.companyService.update(+id, updateCompanyDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.companyService.remove(+id);
-  }
 }

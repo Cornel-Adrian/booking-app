@@ -17,12 +17,11 @@ export class CompanyService {
     @InjectRepository(Company)
     private companyRepository: Repository<Company>,) { }
 
-  async create(name: string, email: string, description: string, services: Service[]): Promise<Company> {
+  async create(name: string, email: string, description: string): Promise<Company> {
     return this.companyRepository.create({
       name: name,
       email: email,
       description: description,
-      services: services
     }
     );
   }
@@ -48,14 +47,6 @@ export class CompanyService {
         id: companyId
       }
     });
-  }
-
-  update(id: number, updateCompanyDto: UpdateCompanyDto) {
-    return `This action updates a #${id} company`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} company`;
   }
 
   findCompanyIdByEmail(email: string) {

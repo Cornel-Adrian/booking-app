@@ -3,11 +3,11 @@ import { OrdersService } from './orders.service';
 import { OrdersController } from './orders.controller';
 import { CompanyModule } from 'src/company/company.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { OrderSchema } from './schema/order.schema';
-import { CompanySchema } from 'src/company/schemas/company.schema';
+import { Company } from 'src/company/entity/company.entity';
+import { Order } from './entity/order.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([OrderSchema, CompanySchema]), CompanyModule],
+  imports: [TypeOrmModule.forFeature([Order, Company]), CompanyModule],
   controllers: [OrdersController],
   providers: [OrdersService],
   exports: [OrdersService]

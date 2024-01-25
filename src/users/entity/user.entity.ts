@@ -1,7 +1,9 @@
 import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
+import {AbstractEntity } from '../../defaults/abstract.entity'
+
 
 @Entity()
-export class User {
+export class User extends AbstractEntity<User> {
     @PrimaryGeneratedColumn()
     userId: string;
 
@@ -16,9 +18,4 @@ export class User {
 
     @Column()
     role: string;
-
-
-    constructor(user: Partial<User>){
-        Object.assign(this, user);
-    }
 }

@@ -64,7 +64,7 @@ export class AuthService {
   private async newRefreshAndAccessToken(
     user: User,
     values: { userAgent: string; ipAddress: string },
-  ): Promise<{ accessToken: string, role: string, refreshToken: string }> {
+  ): Promise<{ accessToken: string, role: string, name: string, createdAt: Date, refreshToken: string }> {
     const refreshObject = new RefreshToken({
       id:
         this.refreshTokens.length === 0
@@ -78,6 +78,8 @@ export class AuthService {
     return {
       refreshToken: refreshObject.sign(),
       role: user.role,
+      name: user.name,
+      createdAt: user.CreatedAt,
       accessToken: sign(
         {
           userId: user.userId,
@@ -96,7 +98,7 @@ export class AuthService {
     if (!refreshToken) {
       return;
     }
-    
+
     this.refreshTokens = this.refreshTokens.filter(
       (refreshToken) => refreshToken.id !== refreshToken.id,
     );
